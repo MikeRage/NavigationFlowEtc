@@ -25,7 +25,6 @@ class MainViewController: UIViewController {
         navigationItem.setRightBarButton(logoutButton, animated: true)
         let menuButton = UIBarButtonItem(image: UIImage(named: "menuButton"), style: .plain, target: self, action: #selector(toggleMenu))
         menuButton.tintColor = .black
-//        menuButton.imageInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         navigationItem.setLeftBarButton(menuButton, animated: true)
         
         monkeyImageView.translatesAutoresizingMaskIntoConstraints = true
