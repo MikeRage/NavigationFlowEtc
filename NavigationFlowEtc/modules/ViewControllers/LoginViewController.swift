@@ -24,6 +24,6 @@ class LoginViewController: UIViewController {
     private func login() {
         UserDefaults.standard.set(true, forKey: "LOGGED_IN")
         print("user logged in")
-        AppDelegate.shared.rootViewController.switchToMainScreen()
+//        AppDelegate.shared.rootViewController.switchToMainScreen()
     }
 }

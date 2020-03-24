@@ -28,11 +28,7 @@ class SplashViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
             
             self.activityIndicator.stopAnimating()
-            if UserDefaults.standard.bool(forKey: "LOGGED_IN") {
-                AppDelegate.shared.rootViewController.switchToMainScreen()
-            } else {
-                AppDelegate.shared.rootViewController.showLoginScreen()
-            }
+            AppDelegate.shared.window?.rootViewController = RootViewController()
         }
     }
 }

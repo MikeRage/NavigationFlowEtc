@@ -10,6 +10,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    var menuDelegate: MenuDelegate?
+    
     let monkeyImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "monkey"))
         imageView.translatesAutoresizingMaskIntoConstraints = true
@@ -25,7 +27,7 @@ class MainViewController: UIViewController {
         return imageView
     }()
     var location = CGPoint(x: 300, y: 400)
-    
+    var showed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,12 +136,15 @@ class MainViewController: UIViewController {
     private func logout() {
         UserDefaults.standard.set(false, forKey: "LOGGED_IN")
         print("user logged out")
-        AppDelegate.shared.rootViewController.switchToLogout()
+//        AppDelegate.shared.rootViewController.switchToLogout()
     }
+    
+
     
     @objc
     private func toggleMenu() {
         print("menu")
+        menuDelegate?.toggleMenu()
     }
 }
 
@@ -148,7 +153,6 @@ extension MainViewController: UIGestureRecognizerDelegate {
                            shouldRecognizeSimultaneouslyWith shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
       return true
     }
-
 }
 
 

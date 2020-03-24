@@ -8,14 +8,29 @@
 
 import UIKit
 
+protocol MenuDelegate {
+    
+    func toggleMenu()
+}
 
 class RootViewController: UIViewController {
     
-    private var current: UIViewController
+    var menuOpened = false
+    private let contentView = UIView()
+    private var current: UIViewController!
+    private var menu = MenuViewController()
     
     init() {
-        self.current = SplashViewController()
+        
         super.init(nibName: nil, bundle: nil)
+        
+        if UserDefaults.standard.bool(forKey: "LOGGED_IN") {
+//            AppDelegate.shared.rootViewController.switchToMainScreen()
+        } else {
+//            AppDelegate.shared.rootViewController.showLoginScreen()
+            
+        }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -24,11 +39,20 @@ class RootViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addChild(menu)
+        view.addSubview(menu.view)
         
-        addChild(current)
-        current.view.frame = view.bounds
-        view.addSubview(current.view)
-        current.didMove(toParent: self)
+        view.addSubview(contentView)
+        contentView.frame = view.bounds
+        
+        let mainViewController = MainViewController()
+        mainViewController.menuDelegate = self
+        let navigationController = UINavigationController(rootViewController: mainViewController)
+        navigationController.isNavigationBarHidden = false
+        addChild(navigationController)
+        navigationController.view.frame = contentView.frame
+        contentView.addSubview(navigationController.view)
+        navigationController.didMove(toParent: self)
         
         print("RootVC loaded")
     }
@@ -90,4 +114,35 @@ class RootViewController: UIViewController {
             completion?()
         }
     }
+}
+
+extension RootViewController: MenuDelegate {
+    
+    func toggleMenu() {
+        
+        if menuOpened {
+                        UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut, animations: {
+                            self.contentView.frame.origin.x = 0
+            }) { (finished) in
+                
+            }
+            
+        } else {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut, animations: {
+                            self.contentView.frame.origin.x = self.contentView.frame.width - 140
+            }) { (finished) in
+                
+            }
+        }
+        menuOpened = !menuOpened
+    }
+
 }

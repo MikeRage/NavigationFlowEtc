@@ -6,6 +6,7 @@
 //  Copyright © 2020 Разработчик Foodle. All rights reserved.
 //
 
+/*
 import SwiftUI
 
 struct ContentView: View {
@@ -21,3 +22,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+*/
